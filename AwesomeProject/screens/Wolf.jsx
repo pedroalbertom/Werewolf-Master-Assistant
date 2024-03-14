@@ -1,6 +1,5 @@
-// Wolf.js
 import React, { useEffect, useState } from "react";
-import { StyleSheet, SafeAreaView, View, TouchableOpacity, Alert, Dimensions, Pressable } from "react-native";
+import { StyleSheet, SafeAreaView, View, TouchableOpacity, Alert, Dimensions, Pressable, ImageBackground } from "react-native";
 import CircleButton from "../components/CircleButton";
 
 export default function Wolf() {
@@ -42,42 +41,48 @@ export default function Wolf() {
   };
 
   const handleTouch = (event) => {
-      const { locationX, locationY } = event.nativeEvent;
-      const isInsideCircle = circles.some(circle => {
-        const distance = Math.sqrt(Math.pow(circle.x - locationX, 2) + Math.pow(circle.y - locationY, 2));
-        return distance <= circleRadius * 2;
-      });
+    const { locationX, locationY } = event.nativeEvent;
+    const isInsideCircle = circles.some(circle => {
+      const distance = Math.sqrt(Math.pow(circle.x - locationX, 2) + Math.pow(circle.y - locationY, 2));
+      return distance <= circleRadius * 2;
+    });
 
-      if (!isInsideCircle) {
-        addCircle(locationX, locationY);
-      }
+    if (!isInsideCircle) {
+      addCircle(locationX, locationY);
+    }
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
-      <Pressable style={styles.container} onPress={handleTouch}>
-        {circles.map((circle, index) => (
-          <CircleButton
-            key={circle.key}
-            top={circle.y}
-            left={circle.x}
-            onPress={() => deleteCircle(circle.key)}
-          />
-        ))}
+    //<SafeAreaView style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
+      <ImageBackground source={require('../assets/background.png')} style={{ flex: 1 }}>
+        <Pressable onPress={handleTouch} style={{ flex: 1 }}>
+          {circles.map((circle, index) => (
+            <CircleButton
+              key={circle.key}
+              top={circle.y}
+              left={circle.x}
+              onPress={() => deleteCircle(circle.key)}
+            />
+          ))}
+        </Pressable>
 
         {/* Button to delete all circles */}
         <TouchableOpacity onPress={deleteAllCircles} style={styles.deleteAllButton}>
           <View style={styles.deleteAllIcon}></View>
         </TouchableOpacity>
-      </Pressable>
-    </SafeAreaView>
+      </ImageBackground>
+    </View>
+    //</SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.95,
-    backgroundColor: 'white',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    resizeMode: 'cover',
   },
   deleteButton: {
     position: 'absolute',

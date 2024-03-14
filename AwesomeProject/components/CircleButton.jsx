@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { TouchableOpacity, View, StyleSheet, Image } from "react-native";
 
 export default function CircleButton({ top, left, onPress }) {
-  const circleRadius = 40;
+  const circleRadius = 50;
   const [imageIndex, setImageIndex] = useState(0);
-  const images = [require('../assets/villager.jpeg'), require('../assets/witch.jpg'), require('../assets/wolf.jpg')];
+  const images = [require('../assets/villager.jpeg'), require('../assets/witch.jpg'), require('../assets/wolf.jpg'), require('../assets/littleGirl.jpg'), require('../assets/vidente.jpg'), require('../assets/cupid.jpg')];
 
   const toggleImage = () => {
     setImageIndex((imageIndex + 1) % images.length);
@@ -20,6 +20,8 @@ export default function CircleButton({ top, left, onPress }) {
           width: circleRadius * 2,
           height: circleRadius * 2,
           borderRadius: circleRadius,
+          borderWidth: 8, // Largura da borda
+          borderColor: 'green', // Cor da borda
         }
       ]}
       onPress={toggleImage}
